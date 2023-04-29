@@ -49,7 +49,7 @@
         display: block;
       }
       
-      #my-form input[type='text'] {
+      #my-form input{
         width: 100%;
         padding: 8px;
         margin-bottom: 10px;
@@ -101,8 +101,26 @@
           <label for="email">Email:</label>
           <input type="text" id="email">
         </div>
+        <div>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone">
+          </div>
+          <div>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob">
+          </div>
+          <div>
+            <label for="address">Address:</label>
+            <input type="text" id="address">
+          </div>
+          
         <input class="btn" type="submit" value="Submit">
       </form>
+
+      <h2 class="title">Users</h2>
+    <ul id="users" class="list-group">
+    
+    </ul>
 
     </section>
     
