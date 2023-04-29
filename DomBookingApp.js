@@ -64,19 +64,41 @@ function displayUsers(){
         // Add text node with input value
         li.appendChild(document.createTextNode('Name:'));
         li.appendChild(document.createTextNode(user.Name));
-        li.appendChild(document.createTextNode('  '));
-        li.appendChild(document.createTextNode('Email:'));
+
+        li.appendChild(document.createTextNode(', Email: '));
         li.appendChild(document.createTextNode(user.Email));
-        li.appendChild(document.createTextNode('  '));
-        li.appendChild(document.createTextNode('Phone:'));
+       
+        li.appendChild(document.createTextNode(', Phone: '));
         li.appendChild(document.createTextNode(user.Phone));
-        li.appendChild(document.createTextNode('  '));
-        li.appendChild(document.createTextNode('DOB:'));
+       
+        li.appendChild(document.createTextNode(', DOB: '));
         li.appendChild(document.createTextNode(user.DOB));
-        li.appendChild(document.createTextNode('  '));
-        li.appendChild(document.createTextNode('Address:'));
+       
+        li.appendChild(document.createTextNode(', Address: '));
         li.appendChild(document.createTextNode(user.Address));
+        
+        // Create delete button
+        var deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+        deleteBtn.appendChild(document.createTextNode('Delete'));
+        li.appendChild(deleteBtn);
+
         // Append li to list
         userList.appendChild(li);
     }
 }
+
+// Remove item
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are You Sure?')){
+            var li = e.target.parentElement;
+            var key = li.childNodes[3].textContent;
+            localStorage.removeItem(key);
+            li.remove();
+        }
+    }
+}
+
+// Event listener for delete button
+userList.addEventListener('click', removeItem);
