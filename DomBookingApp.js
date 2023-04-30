@@ -83,12 +83,18 @@ function displayUsers(){
         deleteBtn.appendChild(document.createTextNode('Delete'));
         li.appendChild(deleteBtn);
 
+          // Create Edit button
+          var editBtn = document.createElement('button');
+          editBtn.className = 'btn btn-primary btn-sm float-right edit';
+          editBtn.appendChild(document.createTextNode('Edit'));
+          li.appendChild(editBtn);
+
         // Append li to list
         userList.appendChild(li);
     }
 }
 
-// Remove item
+// Remove User
 function removeItem(e){
     if(e.target.classList.contains('delete')){
         if(confirm('Are You Sure?')){
@@ -100,5 +106,24 @@ function removeItem(e){
     }
 }
 
+// Edit User
+function editItem(e){
+    if(e.target.classList.contains('edit')){
+      
+            var li = e.target.parentElement;
+            var key = li.childNodes[3].textContent;
+           var user=JSON.parse(localStorage.getItem(key));
+           nameInput.value=user.Name;
+           emailInput.value=user.Email;
+           phoneInput.value = user.Phone;
+           dobInput.value = user.DOB;
+           addressInput.value = user.Address;
+            localStorage.removeItem(key);
+            li.remove();
+        
+    }
+}
+
 // Event listener for delete button
 userList.addEventListener('click', removeItem);
+userList.addEventListener('click', editItem);
