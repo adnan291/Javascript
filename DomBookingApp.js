@@ -22,10 +22,22 @@ function onSubmit(e) {
       Phone: phoneInput.value,
       DOB: dobInput.value,
       Address: addressInput.value
-    };
-    let myObj_serial = JSON.stringify(myObj);
-    localStorage.setItem(emailInput.value, myObj_serial);
-    
+    }
+
+    axios.post("https://crudcrud.com/api/110bec9719914e9884cf3be8063a91ca/appointmentData", myObj)
+    .then((response) => {
+      console.log(response.data);
+      displayUsers();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+  //   let myObj_serial = JSON.stringify(myObj);
+  // localStorage.setItem(emailInput.value, myObj_serial);
+    msg.classList.add('success');
+    msg.innerHTML = 'User Added Successfully';
+    setTimeout(() => msg.remove(), 3000);
     nameInput.value = '';
     emailInput.value = '';
     phoneInput.value = '';
@@ -85,7 +97,7 @@ function displayUsers(){
 
           // Create Edit button
           var editBtn = document.createElement('button');
-          editBtn.className = 'btn btn-primary btn-sm float-right edit';
+          editBtn.className = 'btn btn-secondary btn-sm float-right edit';
           editBtn.appendChild(document.createTextNode('Edit'));
           li.appendChild(editBtn);
 
