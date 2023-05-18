@@ -18,7 +18,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     for (var i = 0; i < response.data.length; i++) {
       displayUsers(response.data[i]);
-      console.log(response.data[i]);
     }
     
   })
@@ -53,7 +52,6 @@ function onSubmit(e) {
 
     axios.post("https://crudcrud.com/api/110bec9719914e9884cf3be8063a91ca/appointments", myObj)
     .then((response) => {
-      console.log(response);
       displayUsers(response.data);
     })
     .catch((err) => {
@@ -132,7 +130,7 @@ function removeItem(e){
         if(confirm('Are You Sure?')){
             var li = e.target.parentElement;
             var key = li.childNodes[3].textContent;
-            localStorage.removeItem(key);
+            axios.delete(`https://crudcrud.com/api/110bec9719914e9884cf3be8063a91ca/appointments/${key}`)
             li.remove();
         }
     }
