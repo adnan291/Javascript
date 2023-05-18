@@ -8,6 +8,33 @@ const msg = document.querySelector('.msg');
 
 myForm.addEventListener('submit', onSubmit);
 
+window.addEventListener("DOMContentLoaded", () => {
+  // const localStorageObj = localStorage;
+  // const localStorageKeys = Object.keys(localStorageObj);
+
+  axios.get("https://crudcrud.com/api/110bec9719914e9884cf3be8063a91ca/appointments")
+  .then((response) => {
+    console.log(response);
+
+    for (var i = 0; i < response.data.length; i++) {
+      displayUsers(response.data[i]);
+      console.log(response.data[i]);
+    }
+    
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+  // for (let i = 0; i < localStorageKeys.length; i++) {
+  //   const key = localStorageKeys[i]
+  //   const userDetailsString =localStorageObj[key];
+  //   const userDetailsObj = JSON.parse(userDetailsString);
+  //   displayUsers(userDetailsObj)
+    
+  // }
+});
+
 function onSubmit(e) {
   e.preventDefault();
   
@@ -24,10 +51,10 @@ function onSubmit(e) {
       Address: addressInput.value
     }
 
-    axios.post("https://crudcrud.com/api/110bec9719914e9884cf3be8063a91ca/appointmentData", myObj)
+    axios.post("https://crudcrud.com/api/110bec9719914e9884cf3be8063a91ca/appointments", myObj)
     .then((response) => {
-      console.log(response.data);
-      displayUsers();
+      console.log(response);
+      displayUsers(response.data);
     })
     .catch((err) => {
       console.log(err);
@@ -43,14 +70,12 @@ function onSubmit(e) {
     phoneInput.value = '';
     dobInput.value = '';
     addressInput.value = '';
-
-    displayUsers()
   }
 }
 
 var userList = document.getElementById('users');
 
-function displayUsers(){
+function displayUsers(user){
     // Get input values
     var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
@@ -62,12 +87,7 @@ function displayUsers(){
     userList.innerHTML = '';
 
     // Loop through all items in localStorage
-    for (var i = 0; i < localStorage.length; i++) {
-        // Get the key of the current item
-        var key = localStorage.key(i);
-        
-        // Parse the JSON string into an object
-        var user = JSON.parse(localStorage.getItem(key));
+   
         
         // Create new li element
         var li = document.createElement('li');
@@ -104,7 +124,7 @@ function displayUsers(){
         // Append li to list
         userList.appendChild(li);
     }
-}
+
 
 // Remove User
 function removeItem(e){
